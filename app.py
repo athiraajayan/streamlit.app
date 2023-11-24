@@ -24,7 +24,7 @@ st.sidebar.write('📧: athiraajayan1998@gmail.com')
 pdf_file = open('RESUME.pdf', 'rb')
 st.sidebar.download_button('Download Resume',pdf_file,file_name='RESUME.pdf',mime='pdf')
 
-tab_skills,tab_exp,tab_cont,tab_pic = st.tabs(['skills','Experience','Projects','Contact me',"Take a picture"])
+tab_skills,tab_exp,tab_pro,tab_cont,tab_pic = st.tabs(['skills','Experience','Projects','Contact me',"Take a picture"])
 with tab_exp:
     #Experience
     st.subheader("Relevant Experience")
@@ -36,7 +36,7 @@ with tab_exp:
     experience_table = experience_table.set_index('Job Title')
     st.table(experience_table)
 
-with tab_cont:
+with tab_pro:
     #Projects GRID
     st.subheader("Projects")
     titanic_data = pd.read_csv('titanic.csv')
@@ -77,32 +77,33 @@ with tab_skills:
         with st.expander("See More Skills"):
             st.write("Business Analysis, People Management, Communication, Adaptability, Team Spirit")
 
-#Streamlit Form
-form = st.form("my_form")
-fullname = form.text_input(label = "Enter your full name",value='')
-age = st.slider("Select your Age")
-gender = st.radio("Select your gender",('Male','Female','Other'))
-message = form.text_area(label="Your Message",value ='',height =100)
-terms =st.checkbox("Accept terms and condition")
-submit = form.form_submit_button(label="Submit")
+with tab_cont:
+    #Streamlit Form
+    form = st.form("my_form")
+    fullname = form.text_input(label = "Enter your full name",value='')
+    age = st.slider("Select your Age")
+    gender = st.radio("Select your gender",('Male','Female','Other'))
+    message = form.text_area(label="Your Message",value ='',height =100)
+    terms =st.checkbox("Accept terms and condition")
+    submit = form.form_submit_button(label="Submit")
 
-#Handle form Submission
-if submit:
-    if terms:
-        st.success("Form Completed: Thankyou for visiting")
-    else:
-        st.error("Please aacept the terms and conditions")
-st.write("Name: ",fullname,"Age: ",age,"Gender: ",gender,"Message: ",message)
+    #Handle form Submission
+    if submit:
+        if terms:
+            st.success("Form Completed: Thankyou for visiting")
+        else:
+            st.error("Please aacept the terms and conditions")
+    st.write("Name: ",fullname,"Age: ",age,"Gender: ",gender,"Message: ",message)
 
-#Add a Map
-## Create a dataframe with latitute and longitute
-data = {
-    'Location': ['Kitchner','Waterloo','Guelph','Cambridge'],
-    'LAT':[43.451639,43.464258,43.5467,43.3616],
-    'LON':[-80.492533,-80.520410,-80.2482,-80.3144]
-}
-df = pd.DataFrame(data)
-st.map(df)
+    #Add a Map
+    ## Create a dataframe with latitute and longitute
+    data = {
+        'Location': ['Kitchner','Waterloo','Guelph','Cambridge'],
+        'LAT':[43.451639,43.464258,43.5467,43.3616],
+        'LON':[-80.492533,-80.520410,-80.2482,-80.3144]
+    }
+    df = pd.DataFrame(data)
+    st.map(df)
 with tab_pic:
     # PIcture using Camera
         picture = st.camera_input("Take a picture with me")
